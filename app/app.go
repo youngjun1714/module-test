@@ -89,7 +89,7 @@ import (
 	abci "github.com/tendermint/tendermint/abci/types"
 	tmjson "github.com/tendermint/tendermint/libs/json"
 	tmos "github.com/tendermint/tendermint/libs/os"
-	gameparams "test.com/game/app/params"
+	gameparams "github.com/youngjun1714/module-test/app/params"
 )
 
 const appName = "GameApp"

@@ -2,7 +2,7 @@ package game
 
 import (
 	"github.com/cosmos/cosmos-sdk/std"
-	"test.com/game/app/params"
+	"github.com/youngjun1714/module-test/app/params"
 )
 
 // MakeEncodingConfig creates an EncodingConfig for testing

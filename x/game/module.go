@@ -3,7 +3,7 @@ package game
 import (
 	"encoding/json"
 
-	gametypes "test.com/gamemodule/types"
+	gametypes "github.com/youngjun1714/module-test/x/game/types"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/codec"

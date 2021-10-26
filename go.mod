@@ -10,7 +10,7 @@ require (
 	github.com/spf13/cobra v1.1.3
 	github.com/tendermint/tendermint v0.34.11
 	github.com/tendermint/tm-db v0.6.4
-	test.com/game v0.0.0
+	
 )
 
 require (
@@ -111,4 +111,3 @@ require (
 
 replace github.com/gogo/protobuf => github.com/regen-network/protobuf v1.3.3-alpha.regen.1
 
-replace test.com/game => ../game

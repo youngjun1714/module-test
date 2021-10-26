@@ -5,9 +5,9 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/server"
 	svrcmd "github.com/cosmos/cosmos-sdk/server/cmd"
-	game "test.com/game/app"
-	"test.com/game/cmd/gamed/cmd"
-	"test.com/game/types"
+	game "github.com/youngjun1714/module-test/app"
+	"github.com/youngjun1714/module-test/cmd/gamed/cmd"
+	"github.com/youngjun1714/module-test/types"
 )
 
 func main() {

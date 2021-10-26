@@ -31,8 +31,8 @@ import (
 	tmcli "github.com/tendermint/tendermint/libs/cli"
 	"github.com/tendermint/tendermint/libs/log"
 	dbm "github.com/tendermint/tm-db"
-	game "test.com/game/app"
-	"test.com/game/app/params"
+	game "github.com/youngjun1714/module-test/app"
+	"github.com/youngjun1714/module-test/app/params"
 )
 
 func NewRootCmd() (*cobra.Command, params.EncodingConfig) {
