@@ -3,7 +3,7 @@ package cli
 import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/spf13/cobra"
-	"github.com/youngjun1714/module-test/types"
+	"github.com/youngjun1714/module-test/x/game/types"
 )
 
 func NewTxCmd() *cobra.Command {
@@ -15,4 +15,9 @@ func NewTxCmd() *cobra.Command {
 	}
 
 	return gameTxCmd
+}
+
+func NewBetAmountTxCmd() *cobra.Command {
+
+	return nil
 }
