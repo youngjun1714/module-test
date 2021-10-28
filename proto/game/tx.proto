@@ -16,7 +16,9 @@ message MsgBetAmountRequest {
 
     string from_address = 1 [(gogoproto.moretags) = "yaml:\"from_address\""];
 
-    cosmos.base.v1beta1.Coin amount = 2 [(gogoproto.nullable) = false];
+    string beting = 2 [(gogoproto.moretags) = "yaml:\"beting\""];
+
+    repeated cosmos.base.v1beta1.Coin amount = 3 [(gogoproto.nullable) = false , (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];
 }
 
 message MsgBetAmountResponse {}
