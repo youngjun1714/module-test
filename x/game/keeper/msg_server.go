@@ -3,7 +3,6 @@ package keeper
 import (
 	"context"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/youngjun1714/module-test/x/game/types"
 )
 
@@ -19,7 +18,7 @@ var _ types.MsgServer = msgServer{}
 
 func (k msgServer) BetAmount(goCtx context.Context, msg *types.MsgBetAmountRequest) (*types.MsgBetAmountResponse, error) {
 
-	ctx := sdk.UnwrapSDKContext(goCtx)
+	//	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	//	if err :=
 
