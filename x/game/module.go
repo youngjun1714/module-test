@@ -17,7 +17,6 @@ import (
 
 	"github.com/spf13/cobra"
 	"github.com/youngjun1714/module-test/x/game/client/cli"
-	"github.com/youngjun1714/module-test/x/game/client/rest"
 	"github.com/youngjun1714/module-test/x/game/keeper"
 
 	abci "github.com/tendermint/tendermint/abci/types"
@@ -62,7 +61,7 @@ func (AppModuleBasic) GetQueryCmd() *cobra.Command {
 }
 
 func (AppModuleBasic) RegisterRESTRoutes(clientCtx client.Context, rtr *mux.Router) {
-	rest.RegisterHandlers(clientCtx, rtr)
+	//	rest.RegisterHandlers(clientCtx, rtr)
 }
 
 func (AppModuleBasic) RegisterGRPCGatewayRoutes(clientCtx client.Context, mux *runtime.ServeMux) {
