@@ -3,10 +3,12 @@ package types
 import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	"github.com/cosmos/cosmos-sdk/codec/types"
-	/*	"github.com/cosmos/cosmos-sdk/codec/types"
-		cryptocodec "github.com/cosmos/cosmos-sdk/crypto/codec"
-		sdk "github.com/cosmos/cosmos-sdk/types"
-		"github.com/cosmos/cosmos-sdk/types/msgservice"*/)
+	sdk "github.com/cosmos/cosmos-sdk/types"
+
+	cryptocodec "github.com/cosmos/cosmos-sdk/crypto/codec"
+
+	"github.com/cosmos/cosmos-sdk/types/msgservice"
+)
 
 var (
 	amino     = codec.NewLegacyAmino()
@@ -16,10 +18,15 @@ var (
 func RegisterLegacyAminoCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgBetAmountRequest{}, "game/MsgBetAmountRequest", nil)
 }
-func RegisterInterfaces (registry types.InterfaceRegistry) {
-	
+func RegisterInterfaces(registry types.InterfaceRegistry) {
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgBetAmountRequest{},
+	)
+	msgservice.RegisterMsgServiceDesc(registry, &_Msg_serviceDesc)
 }
 
-/*func init() {
-
-}*/
+func init() {
+	RegisterLegacyAminoCodec(amino)
+	cryptocodec.RegisterCrypto(amino)
+	amino.Seal()
+}

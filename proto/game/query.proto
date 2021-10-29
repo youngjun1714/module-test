@@ -1,0 +1,23 @@
+syntax= "proto3";
+package game.gamemodule;
+
+option go_package="github.com/youngjun1714/module-test/x/game/types";
+
+import "gogoproto/gogo.proto";
+import "google/api/annotations.proto";
+import "cosmos/base/v1beta1/coin.proto";
+
+
+service Query {
+    rpc TotalBeting(QueryTotalBetingRequest) returns (QueryTotalBetingResponse){
+        option (google.api.http).get = "/game/totalbeting";
+    }
+}
+
+message QueryTotalBetingRequest {}
+message QueryTotalBetingResponse {
+    
+    repeated cosmos.base.v1beta1.Coin balances = 1
+      [(gogoproto.nullable) = false, (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];
+
+}

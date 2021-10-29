@@ -3,17 +3,18 @@ package game
 import (
 	"encoding/json"
 
+	"github.com/gorilla/mux"
+	"github.com/grpc-ecosystem/grpc-gateway/runtime"
+	"github.com/youngjun1714/module-test/x/game/types"
 	gametypes "github.com/youngjun1714/module-test/x/game/types"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/codec"
 	cdctypes "github.com/cosmos/cosmos-sdk/codec/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
-	"github.com/cosmos/cosmos-sdk/x/distribution/client/cli"
 	"github.com/spf13/cobra"
+	"github.com/youngjun1714/module-test/x/game/client/cli"
 )
-
-var test = gametypes.ModuleName
 
 var (
 	_ module.AppModuleBasic = AppModuleBasic{}
@@ -28,10 +29,10 @@ func (AppModuleBasic) Name() string {
 }
 
 func (AppModuleBasic) RegisterLegacyAminoCodec(cdc *codec.LegacyAmino) {
-
+	types.RegisterLegacyAminoCodec(cdc)
 }
 func (AppModuleBasic) RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
-
+	types.RegisterInterfaces(registry)
 }
 
 func (AppModuleBasic) DefaultGenesis(cdc codec.JSONMarshaler) json.RawMessage {
@@ -49,5 +50,13 @@ func (AppModuleBasic) GetTxCmd() *cobra.Command {
 }
 
 func (AppModuleBasic) GetQueryCmd() *cobra.Command {
-	return nil
+	return cli.NewQueryCmd()
+}
+
+func (AppModuleBasic) RegisterRESTRoutes(clientCtx client.Context, rtr *mux.Router) {
+
+}
+
+func (AppModuleBasic) RegisterGRPCGatewayRoutes(clientCtx client.Context, mux *runtime.ServeMux) {
+
 }

@@ -1,0 +1,11 @@
+syntax = "proto3";
+package game.gamemodule;
+
+option go_package="github.com/youngjun1714/module-test/x/game/types";
+
+
+
+message Params {
+    
+    
+}

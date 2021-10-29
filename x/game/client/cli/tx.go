@@ -12,9 +12,11 @@ import (
 func NewTxCmd() *cobra.Command {
 
 	gameTxCmd := &cobra.Command{
-		Use:   types.ModuleName,
-		Short: "game transactions subcommand",
-		RunE:  client.ValidateCmd,
+		Use:                        types.ModuleName,
+		Short:                      "game transactions subcommand",
+		DisableFlagParsing:         true,
+		SuggestionsMinimumDistance: 2,
+		RunE:                       client.ValidateCmd,
 	}
 
 	gameTxCmd.AddCommand(NewBetAmountTxCmd())

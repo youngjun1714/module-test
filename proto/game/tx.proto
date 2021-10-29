@@ -10,6 +10,8 @@ import "cosmos/base/v1beta1/coin.proto";
 service Msg {
     
     rpc BetAmount(MsgBetAmountRequest) returns (MsgBetAmountResponse);
+
+   // rpc BetReward();
 }
 
 message MsgBetAmountRequest {
