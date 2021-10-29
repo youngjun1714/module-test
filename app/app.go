@@ -90,6 +90,9 @@ import (
 	tmjson "github.com/tendermint/tendermint/libs/json"
 	tmos "github.com/tendermint/tendermint/libs/os"
 	gameparams "github.com/youngjun1714/module-test/app/params"
+	"github.com/youngjun1714/module-test/x/game"
+	gamekeeper "github.com/youngjun1714/module-test/x/game/keeper"
+	gametypes "github.com/youngjun1714/module-test/x/game/types"
 )
 
 const appName = "GameApp"
@@ -118,6 +121,7 @@ var (
 		evidence.AppModuleBasic{},
 		transfer.AppModuleBasic{},
 		vesting.AppModuleBasic{},
+		game.AppModuleBasic{},
 	)
 
 	// module account permissions
@@ -166,6 +170,7 @@ type GameApp struct {
 	IBCKeeper        *ibckeeper.Keeper // IBC Keeper must be a pointer in the app, so we can SetRouter on it correctly
 	EvidenceKeeper   evidencekeeper.Keeper
 	TransferKeeper   ibctransferkeeper.Keeper
+	Gamekeeper       gamekeeper.Keeper /* 모듈 Keeper 추가 */
 
 	// make scoped keepers public for test purposes
 	ScopedIBCKeeper      capabilitykeeper.ScopedKeeper
@@ -204,7 +209,7 @@ func NewGameApp(
 		authtypes.StoreKey, banktypes.StoreKey, stakingtypes.StoreKey,
 		minttypes.StoreKey, distrtypes.StoreKey, slashingtypes.StoreKey,
 		govtypes.StoreKey, paramstypes.StoreKey, ibchost.StoreKey, upgradetypes.StoreKey,
-		evidencetypes.StoreKey, ibctransfertypes.StoreKey, capabilitytypes.StoreKey,
+		evidencetypes.StoreKey, ibctransfertypes.StoreKey, capabilitytypes.StoreKey, gametypes.StoreKey, /* 모듈 store key 추가 */
 	)
 
 	tkeys := sdk.NewTransientStoreKeys(paramstypes.TStoreKey)
@@ -273,6 +278,10 @@ func NewGameApp(
 		appCodec, keys[ibchost.StoreKey], app.GetSubspace(ibchost.ModuleName), app.StakingKeeper, scopedIBCKeeper,
 	)
 
+	app.Gamekeeper = gamekeeper.NewKeeper(
+		appCodec, keys[gametypes.StoreKey], app.GetSubspace(gametypes.ModuleName), app.BankKeeper,
+	)
+
 	govRouter := govtypes.NewRouter()
 	govRouter.AddRoute(govtypes.RouterKey, govtypes.ProposalHandler).
 		AddRoute(paramproposal.RouterKey, params.NewParamChangeProposalHandler(app.ParamsKeeper)).
@@ -335,6 +344,7 @@ func NewGameApp(
 		evidence.NewAppModule(app.EvidenceKeeper),
 		ibc.NewAppModule(app.IBCKeeper),
 		params.NewAppModule(app.ParamsKeeper),
+		game.NewAppModule(appCodec, app.Gamekeeper, app.BankKeeper),
 		transferModule,
 	)
 
