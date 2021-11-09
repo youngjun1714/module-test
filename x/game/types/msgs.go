@@ -9,8 +9,8 @@ const TypeMsgBetAmount = "bet-amount"
 
 var _ sdk.Msg = &MsgBetAmountRequest{}
 
-func NewMsgBetAmountRequest(sender string, beting string, amount sdk.Coins) *MsgBetAmountRequest {
-	return &MsgBetAmountRequest{FromAddress: sender, Beting: beting, Amount: amount}
+func NewMsgBetAmountRequest(fromAddr sdk.AccAddress, betting string, amount sdk.Coins) *MsgBetAmountRequest {
+	return &MsgBetAmountRequest{FromAddress: fromAddr.String(), Betting: betting, Amount: amount}
 }
 
 func (msg MsgBetAmountRequest) Route() string { return RouterKey }
@@ -18,6 +18,7 @@ func (msg MsgBetAmountRequest) Route() string { return RouterKey }
 func (msg MsgBetAmountRequest) Type() string { return TypeMsgBetAmount }
 
 func (msg MsgBetAmountRequest) ValidateBasic() error {
+
 	_, err := sdk.AccAddressFromBech32(msg.FromAddress)
 
 	if err != nil {

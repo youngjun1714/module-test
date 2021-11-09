@@ -1,5 +1,4 @@
-
-syntax="proto3";
+syntax = "proto3";
 package game.gamemodule;
 
 option go_package="github.com/youngjun1714/module-test/x/game/types";
@@ -7,20 +6,15 @@ option go_package="github.com/youngjun1714/module-test/x/game/types";
 import "gogoproto/gogo.proto";
 import "cosmos/base/v1beta1/coin.proto";
 
-service Msg {
-    
-    rpc BetAmount(MsgBetAmountRequest) returns (MsgBetAmountResponse);
-
-   // rpc BetReward();
-}
-
-message MsgBetAmountRequest {
+message Betting {
 
     string from_address = 1 [(gogoproto.moretags) = "yaml:\"from_address\""];
 
     string betting = 2 [(gogoproto.moretags) = "yaml:\"betting\""];
-
+    
     repeated cosmos.base.v1beta1.Coin amount = 3 [(gogoproto.nullable) = false , (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];
 }
 
-message MsgBetAmountResponse {}
+message BettingAmount {
+    int64 amount = 1 [(gogoproto.moretags) = "yaml:\"amount\""];
+}

@@ -3,6 +3,7 @@ package keeper
 import (
 	"context"
 
+	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/youngjun1714/module-test/x/game/types"
 )
 
@@ -18,9 +19,29 @@ var _ types.MsgServer = msgServer{}
 
 func (k msgServer) BetAmount(goCtx context.Context, msg *types.MsgBetAmountRequest) (*types.MsgBetAmountResponse, error) {
 
-	//	ctx := sdk.UnwrapSDKContext(goCtx)
+	ctx := sdk.UnwrapSDKContext(goCtx)
 
-	//	if err :=
+	newBetting := types.NewBetting(msg.FromAddress, msg.Betting, msg.Amount)
 
-	return &types.MsgBetAmountResponse{}, nil
+	err := k.Keeper.Betting(ctx, newBetting)
+
+	if err != nil {
+		return nil, err
+	}
+
+	ctx.EventManager().EmitEvents(sdk.Events{
+		sdk.NewEvent(
+			types.EventTypeBetting,
+			sdk.NewAttribute(types.AttributeKeySender, msg.FromAddress),
+			sdk.NewAttribute(types.AtttibuteKeyBetting, msg.Betting),
+			sdk.NewAttribute(sdk.AttributeKeyAmount, msg.Amount.String()),
+		),
+		sdk.NewEvent(
+			sdk.EventTypeMessage,
+			sdk.NewAttribute(sdk.AttributeKeyModule, types.AttributeValueCategory),
+			sdk.NewAttribute(sdk.AttributeKeySender, msg.FromAddress),
+		),
+	})
+
+	return &types.MsgBetAmountResponse{}, err
 }

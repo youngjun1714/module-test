@@ -19,12 +19,12 @@ func NewQueryCmd() *cobra.Command {
 	return cmd
 }
 
-func GetCmdQueryTotalBeting() *cobra.Command {
+func GetCmdQueryTotalBetting() *cobra.Command {
 
 	cmd := &cobra.Command{
-		Use:   "totalbeting",
+		Use:   "totalbetting",
 		Args:  cobra.NoArgs,
-		Short: "Query Total Beting amount",
+		Short: "Query Total Betting amount",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx, err := client.GetClientQueryContext(cmd)
 			if err != nil {
@@ -33,7 +33,7 @@ func GetCmdQueryTotalBeting() *cobra.Command {
 
 			queryClient := types.NewQueryClient(clientCtx)
 
-			res, err := queryClient.TotalBeting(cmd.Context(), &types.QueryTotalBetingRequest{})
+			res, err := queryClient.TotalBetting(cmd.Context(), &types.QueryTotalBettingRequest{})
 
 			if err != nil {
 				return err

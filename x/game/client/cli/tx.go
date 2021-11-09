@@ -27,8 +27,8 @@ func NewTxCmd() *cobra.Command {
 func NewBetAmountTxCmd() *cobra.Command {
 
 	cmd := &cobra.Command{
-		Use:   "bet-amount [from_key_or_address] [Odds_or_Events] [amount]",
-		Short: "beting amount Odds and Events",
+		Use:   "bet-amount [from_key_or_address] [Odds_or_Evens] [amount]",
+		Short: "betting amount Odds and Evens",
 		Args:  cobra.ExactArgs(3),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cmd.Flags().Set(flags.FlagFrom, args[0])
@@ -43,7 +43,7 @@ func NewBetAmountTxCmd() *cobra.Command {
 				return err
 			}
 
-			msg := types.NewMsgBetAmountRequest(clientCtx.GetFromName(), args[1], coins)
+			msg := types.NewMsgBetAmountRequest(clientCtx.GetFromAddress(), args[1], coins)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}

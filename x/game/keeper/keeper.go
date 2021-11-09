@@ -7,8 +7,8 @@ import (
 
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/ibc/applications/transfer/types"
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
+	"github.com/youngjun1714/module-test/x/game/types"
 )
 
 type Keeper struct {
@@ -24,6 +24,7 @@ func NewKeeper(
 	params paramtypes.Subspace,
 	bankKeeper types.BankKeeper,
 ) Keeper {
+
 	return Keeper{
 		storeKey:   storeKey,
 		cdc:        cdc,
