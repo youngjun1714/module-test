@@ -8,6 +8,8 @@ const (
 	RouterKey = ModuleName
 
 	QuerierRoute = ModuleName
+
+	RewardsAddress = ""
 )
 
 var (

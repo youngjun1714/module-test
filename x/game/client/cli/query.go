@@ -16,13 +16,17 @@ func NewQueryCmd() *cobra.Command {
 		RunE:                       client.ValidateCmd,
 	}
 
+	cmd.AddCommand(
+		GetCmdQueryTotalBetting(),
+	)
+
 	return cmd
 }
 
 func GetCmdQueryTotalBetting() *cobra.Command {
 
 	cmd := &cobra.Command{
-		Use:   "totalbetting",
+		Use:   "TotalBetting",
 		Args:  cobra.NoArgs,
 		Short: "Query Total Betting amount",
 		RunE: func(cmd *cobra.Command, args []string) error {

@@ -1,3 +1,8 @@
+/*
+	1. 전체 amount 저장.
+	2. 누가 얼마큼 어디에 betting 했는지 저장.
+*/
+
 package keeper
 
 import (

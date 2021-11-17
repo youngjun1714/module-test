@@ -5,7 +5,8 @@ option go_package="github.com/youngjun1714/module-test/x/game/types";
 
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
-import "cosmos/base/v1beta1/coin.proto";
+//import "game/betting.proto";
+//import "cosmos/base/v1beta1/coin.proto";
 
 
 service Query {
@@ -15,9 +16,10 @@ service Query {
 }
 
 message QueryTotalBettingRequest {}
-message QueryTotalBettingResponse {
-    
-    repeated cosmos.base.v1beta1.Coin balances = 1
-      [(gogoproto.nullable) = false, (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];
+message QueryTotalBettingResponse { 
+    TotalResInfo ResInfo =1 [(gogoproto.nullable) = false];
+}
 
+message TotalResInfo {
+    int64 total = 1 [(gogoproto.moretags) = "yaml:\"amount\""];
 }

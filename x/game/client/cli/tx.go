@@ -56,3 +56,20 @@ func NewBetAmountTxCmd() *cobra.Command {
 
 	return cmd
 }
+
+func NewRewardsTxCmd() *cobra.Command {
+
+	cmd := &cobra.Command{
+		Use:   "All-Rewards",
+		Short: "betting amount Rewards Odds or Evens",
+		Args:  cobra.ExactArgs(0),
+		RunE: func(cmd *cobra.Command, args []string) error {
+
+			return nil
+		},
+	}
+
+	flags.AddTxFlagsToCmd(cmd)
+
+	return cmd
+}

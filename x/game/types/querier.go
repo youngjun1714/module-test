@@ -1,7 +1,8 @@
 package types
 
 const (
-	QueryBettingAmount = "totalBetting"
+	QueryBettingAmount = "totalbetting"
 	QueryOddsAmout     = "Odds"
 	QueryEvensAmout    = "Evens"
 )
+
