@@ -1,6 +1,8 @@
 package cli
 
 import (
+	"context"
+
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
@@ -60,12 +62,56 @@ func NewBetAmountTxCmd() *cobra.Command {
 func NewRewardsTxCmd() *cobra.Command {
 
 	cmd := &cobra.Command{
-		Use:   "All-Rewards",
-		Short: "betting amount Rewards Odds or Evens",
-		Args:  cobra.ExactArgs(0),
+		Use:   "All-Rewards [Odds_or_Evens]",
+		Short: "betting amount Rewards Odds or Evens [ default signer : game1hmnxk5d84sl33lmdyxcervdqrp9nfau0xtv9u0 ]",
+		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
+			cmd.Flags().Set(flags.FlagFrom, types.RewardsAddress)
 
-			return nil
+			clientCtx, err := client.GetClientTxContext(cmd)
+			if err != nil {
+				return err
+			}
+
+			queryClient := types.NewQueryClient(clientCtx)
+
+			var msgs []sdk.Msg
+
+			switch args[0] {
+			case "Odds":
+				res, err := queryClient.OddsBetting(context.Background(), &types.QueryOddsBettingRequest{})
+				if err != nil {
+					return err
+				}
+				msgs = make([]sdk.Msg, 0, len(res.OddsInfo.Info))
+				for _, info := range res.OddsInfo.Info {
+					msg := types.NewMsgAllRewardsRequest(info.FromAddress, "Odds", info.Amount)
+
+					if err := msg.ValidateBasic(); err != nil {
+						return err
+					}
+					msgs = append(msgs, msg)
+				}
+			case "Evens":
+				res, err := queryClient.EvensBetting(context.Background(), &types.QueryEvensBettingRequest{})
+
+				if err != nil {
+					return err
+				}
+				msgs = make([]sdk.Msg, 0, len(res.EvensInfo.Info))
+				for _, info := range res.EvensInfo.Info {
+					msg := types.NewMsgAllRewardsRequest(info.FromAddress, "Evens", info.Amount)
+
+					if err := msg.ValidateBasic(); err != nil {
+						return err
+					}
+					msgs = append(msgs, msg)
+				}
+			default:
+
+			}
+
+			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msgs...)
 		},
 	}
 

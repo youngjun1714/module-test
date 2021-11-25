@@ -10,7 +10,6 @@ import (
 func (k Keeper) Betting(ctx sdk.Context, msg types.Betting) error {
 
 	from, err := sdk.AccAddressFromBech32(msg.FromAddress)
-
 	if err != nil {
 		return err
 	}
@@ -21,11 +20,9 @@ func (k Keeper) Betting(ctx sdk.Context, msg types.Betting) error {
 		types.ModuleName,
 		msg.Amount,
 	)
-
 	if err != nil {
 		return err
 	}
-
 	switch msg.Betting {
 	case "Odds":
 		info := types.GetBettingInfoParams(k.GetOddsAmount(ctx), msg.Amount[0].Amount.Int64(), msg.FromAddress)
@@ -36,6 +33,11 @@ func (k Keeper) Betting(ctx sdk.Context, msg types.Betting) error {
 	default:
 		return fmt.Errorf("msg type error")
 	}
+
+	return nil
+}
+
+func (k Keeper) Rewards(ctx sdk.Context, msg types.Rewards) error {
 
 	return nil
 }

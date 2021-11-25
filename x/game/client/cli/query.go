@@ -39,6 +39,10 @@ func GetCmdQueryTotalBetting() *cobra.Command {
 
 			res, err := queryClient.TotalBetting(cmd.Context(), &types.QueryTotalBettingRequest{})
 
+			/*			for _, info := range res.OddsInfo.Info {
+
+						}*/
+
 			if err != nil {
 				return err
 			}

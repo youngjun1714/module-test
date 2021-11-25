@@ -9,7 +9,7 @@ const (
 
 	QuerierRoute = ModuleName
 
-	RewardsAddress = ""
+	RewardsAddress = "game1hmnxk5d84sl33lmdyxcervdqrp9nfau0xtv9u0"
 )
 
 var (

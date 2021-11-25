@@ -32,3 +32,21 @@ func (k Querier) TotalBetting(ctx context.Context, _ *types.QueryTotalBettingReq
 
 	return &types.QueryTotalBettingResponse{ResInfo: types.NewResInfo(totalAmount)}, nil
 }
+
+func (k Querier) OddsBetting(ctx context.Context, _ *types.QueryOddsBettingRequest) (*types.QueryOddsBettingResponse, error) {
+
+	sdkCtx := sdk.UnwrapSDKContext(ctx)
+
+	oddsinfo := k.GetOddsAmount(sdkCtx)
+
+	return &types.QueryOddsBettingResponse{OddsInfo: types.NewTotalBettingInfo(oddsinfo.Info)}, nil
+}
+
+func (k Querier) EvensBetting(ctx context.Context, _ *types.QueryEvensBettingRequest) (*types.QueryEvensBettingResponse, error) {
+
+	sdkCtx := sdk.UnwrapSDKContext(ctx)
+
+	evensinfo := k.GetOddsAmount(sdkCtx)
+
+	return &types.QueryEvensBettingResponse{EvensInfo: types.NewTotalBettingInfo(evensinfo.Info)}, nil
+}

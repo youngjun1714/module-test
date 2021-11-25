@@ -11,16 +11,23 @@ service Msg {
     
     rpc BetAmount(MsgBetAmountRequest) returns (MsgBetAmountResponse);
 
-   // rpc BetReward();
+    rpc AllRewards(MsgAllRewardsRequest) returns (MsgAllRewardsResponse);
 }
 
 message MsgBetAmountRequest {
-
     string from_address = 1 [(gogoproto.moretags) = "yaml:\"from_address\""];
-
     string betting = 2 [(gogoproto.moretags) = "yaml:\"betting\""];
-
     repeated cosmos.base.v1beta1.Coin amount = 3 [(gogoproto.nullable) = false , (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];
 }
 
 message MsgBetAmountResponse {}
+
+
+
+message MsgAllRewardsRequest {
+    string to_address = 1 [(gogoproto.moretags) = "yaml:\"to_address\""];
+    string winners = 2 [(gogoproto.moretags) = "yaml:\"winners\""];
+    int64 amount = 3 [(gogoproto.moretags) = "yaml:\"amount\""];
+}
+
+message MsgAllRewardsResponse{}

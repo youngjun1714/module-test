@@ -5,13 +5,21 @@ option go_package="github.com/youngjun1714/module-test/x/game/types";
 
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
-//import "game/betting.proto";
+import "game/betting.proto";
 //import "cosmos/base/v1beta1/coin.proto";
 
 
 service Query {
     rpc TotalBetting(QueryTotalBettingRequest) returns (QueryTotalBettingResponse){
         option (google.api.http).get = "/game/totalbetting";
+    }
+
+    rpc OddsBetting(QueryOddsBettingRequest) returns (QueryOddsBettingResponse){
+        option (google.api.http).get = "/game/oddsbetting";
+    }
+
+    rpc EvensBetting(QueryEvensBettingRequest) returns (QueryEvensBettingResponse){
+        option (google.api.http).get = "/game/evensbetting";
     }
 }
 
@@ -22,4 +30,14 @@ message QueryTotalBettingResponse {
 
 message TotalResInfo {
     int64 total = 1 [(gogoproto.moretags) = "yaml:\"amount\""];
+}
+
+message QueryOddsBettingRequest {}
+message QueryOddsBettingResponse {
+    TotalBettingInfo OddsInfo = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryEvensBettingRequest {}
+message QueryEvensBettingResponse {
+    TotalBettingInfo EvensInfo = 1 [(gogoproto.nullable) = false];
 }

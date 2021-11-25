@@ -45,3 +45,18 @@ func (k msgServer) BetAmount(goCtx context.Context, msg *types.MsgBetAmountReque
 
 	return &types.MsgBetAmountResponse{}, err
 }
+
+func (k msgServer) AllRewards(goCtx context.Context, msg *types.MsgAllRewardsRequest) (*types.MsgAllRewardsResponse, error) {
+
+	ctx := sdk.UnwrapSDKContext(goCtx)
+
+	rewards := types.NewRewards(msg.ToAddress, msg.Winners, msg.Amount)
+
+	err := k.Keeper.Rewards(ctx, rewards)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &types.MsgAllRewardsResponse{}, nil
+}
