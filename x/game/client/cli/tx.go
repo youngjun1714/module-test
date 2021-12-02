@@ -85,7 +85,7 @@ func NewRewardsTxCmd() *cobra.Command {
 				}
 				msgs = make([]sdk.Msg, 0, len(res.OddsInfo.Info))
 				for _, info := range res.OddsInfo.Info {
-					msg := types.NewMsgAllRewardsRequest(info.FromAddress, "Odds", info.Amount)
+					msg := types.NewMsgAllRewardsRequest(info.FromAddress, "Odds")
 
 					if err := msg.ValidateBasic(); err != nil {
 						return err

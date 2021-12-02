@@ -30,8 +30,8 @@ func NewQuerier(k Keeper, lefacyQuerierCdc *codec.LegacyAmino) sdk.Querier {
 func queryTotalBetting(ctx sdk.Context, k Keeper, legacyQuerierCdc *codec.LegacyAmino) ([]byte, error) {
 	//	amt := k.GetEvensAmount(ctx)
 	//	amt := k.GetOddsAmount(ctx)
-
-	bz, err := codec.MarshalJSONIndent(legacyQuerierCdc, types.NewResInfo(100))
+	var total sdk.Coins
+	bz, err := codec.MarshalJSONIndent(legacyQuerierCdc, types.NewResInfo(total))
 
 	if err != nil {
 		return nil, sdkerrors.Wrapf(sdkerrors.ErrJSONMarshal, err.Error())

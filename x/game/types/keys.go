@@ -10,6 +10,8 @@ const (
 	QuerierRoute = ModuleName
 
 	RewardsAddress = "game1hmnxk5d84sl33lmdyxcervdqrp9nfau0xtv9u0"
+
+	Demon = "stake"
 )
 
 var (

@@ -20,17 +20,17 @@ func (k Querier) TotalBetting(ctx context.Context, _ *types.QueryTotalBettingReq
 	oddinfo := k.GetOddsAmount(sdkCtx)
 	evensinfo := k.GetEvensAmount(sdkCtx)
 
-	var totalAmount int64 = 0
+	var totalAmount sdk.Coin
 
 	for _, oddbettinginfo := range oddinfo.Info {
-		totalAmount += oddbettinginfo.Amount
+		totalAmount.Add(oddbettinginfo.Amount[0])
 	}
 
 	for _, evensbettinginfo := range evensinfo.Info {
-		totalAmount += evensbettinginfo.Amount
+		totalAmount.Add(evensbettinginfo.Amount[0])
 	}
 
-	return &types.QueryTotalBettingResponse{ResInfo: types.NewResInfo(totalAmount)}, nil
+	return &types.QueryTotalBettingResponse{ResInfo: types.NewResInfo(sdk.NewCoins(totalAmount))}, nil
 }
 
 func (k Querier) OddsBetting(ctx context.Context, _ *types.QueryOddsBettingRequest) (*types.QueryOddsBettingResponse, error) {

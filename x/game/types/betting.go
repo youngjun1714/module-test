@@ -13,7 +13,7 @@ func NewBetting(from string, betting string, amount sdk.Coins) Betting {
 	}
 }
 
-func NewRewards(to string, winners string, amount int64) Rewards {
+func NewRewards(to string, winners string, amount sdk.Coins) Rewards {
 	return Rewards{
 		ToAddress: to,
 		Winners:   winners,
@@ -26,16 +26,16 @@ func NewTotalBettingInfo(info BettingInfoParams) TotalBettingInfo {
 	}
 }
 
-func NewBettingInfo(amount int64, from string) *BettingInfo {
+func NewBettingInfo(amount sdk.Coins, from string) *BettingInfo {
 	return &BettingInfo{
 		Amount:      amount,
 		FromAddress: from,
 	}
 }
 
-func NewResInfo(total int64) TotalResInfo {
+func NewResInfo(amount sdk.Coins) TotalResInfo {
 	return TotalResInfo{
-		Total: total,
+		Amount: amount,
 	}
 }
 
@@ -46,7 +46,7 @@ func NewOddsInfo(info TotalBettingInfo) TotalBettingInfo {
 	}
 }
 */
-func GetBettingInfoParams(totalInfo TotalBettingInfo, amount int64, from string) TotalBettingInfo {
+func GetBettingInfoParams(totalInfo TotalBettingInfo, amount sdk.Coins, from string) TotalBettingInfo {
 
 	info := append(totalInfo.Info, NewBettingInfo(amount, from))
 	//	info = info[:len(info)-1]
@@ -63,10 +63,10 @@ func GetRewards(totalInfo TotalBettingInfo, to string) TotalBettingInfo {
 			break
 		}
 	}
-
 	temp := make(BettingInfoParams, 0)
 	temp2 := append(temp, totalInfo.Info[:index]...)
 	temp3 := append(temp2, totalInfo.Info[index+1:]...)
+
 	return NewTotalBettingInfo(temp3)
 
 }

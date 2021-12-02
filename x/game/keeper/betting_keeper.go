@@ -23,12 +23,13 @@ func (k Keeper) Betting(ctx sdk.Context, msg types.Betting) error {
 	if err != nil {
 		return err
 	}
+
 	switch msg.Betting {
 	case "Odds":
-		info := types.GetBettingInfoParams(k.GetOddsAmount(ctx), msg.Amount[0].Amount.Int64(), msg.FromAddress)
+		info := types.GetBettingInfoParams(k.GetOddsAmount(ctx), msg.Amount, msg.FromAddress)
 		k.SetOddsAmount(ctx, info)
 	case "Evens":
-		info := types.GetBettingInfoParams(k.GetEvensAmount(ctx), msg.Amount[0].Amount.Int64(), msg.FromAddress)
+		info := types.GetBettingInfoParams(k.GetEvensAmount(ctx), msg.Amount, msg.FromAddress)
 		k.SetEvensAmount(ctx, info)
 	default:
 		return fmt.Errorf("msg type error")
@@ -38,6 +39,36 @@ func (k Keeper) Betting(ctx sdk.Context, msg types.Betting) error {
 }
 
 func (k Keeper) Rewards(ctx sdk.Context, msg types.Rewards) error {
+
+	oddinfo := k.GetOddsAmount(ctx)
+	evensinfo := k.GetEvensAmount(ctx)
+
+	var (
+		totalAmount, oddsAmount, evnesAmount sdk.Dec
+	)
+
+	for _, oddbettinginfo := range oddinfo.Info {
+		totalAmount.Add(sdk.NewDecFromInt(oddbettinginfo.Amount[0].Amount))
+		oddsAmount.Add(sdk.NewDecFromInt(oddbettinginfo.Amount[0].Amount))
+	}
+
+	for _, evensbettinginfo := range evensinfo.Info {
+		totalAmount.Add(sdk.NewDecFromInt(evensbettinginfo.Amount[0].Amount))
+		evnesAmount.Add(sdk.NewDecFromInt(evensbettinginfo.Amount[0].Amount))
+	}
+	/**/
+
+	/**/
+	switch msg.Winners {
+	case "Odds":
+		k.DelStore(ctx, types.KeyEvensAmount)
+
+	case "Evens":
+		k.DelStore(ctx, types.KeyOddsAmount)
+
+	default:
+
+	}
 
 	return nil
 }
@@ -69,4 +100,10 @@ func (k Keeper) GetEvensAmount(ctx sdk.Context) types.TotalBettingInfo {
 	bz := store.Get(types.KeyEvensAmount)
 	k.cdc.UnmarshalBinaryBare(bz, &info)
 	return info
+}
+
+func (k Keeper) DelStore(ctx sdk.Context, keyName []byte) {
+
+	store := k.Store(ctx)
+	store.Delete(keyName)
 }

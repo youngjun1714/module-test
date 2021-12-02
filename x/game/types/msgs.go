@@ -54,7 +54,7 @@ func (msg MsgBetAmountRequest) GetSigners() []sdk.AccAddress {
 	return []sdk.AccAddress{from}
 }
 
-func NewMsgAllRewardsRequest(to string, win string, amount int64) *MsgAllRewardsRequest {
+func NewMsgAllRewardsRequest(to string, win string, amount sdk.Coins) *MsgAllRewardsRequest {
 	return &MsgAllRewardsRequest{
 		ToAddress: to,
 		Winners:   win,

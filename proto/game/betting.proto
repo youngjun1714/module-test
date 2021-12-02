@@ -20,7 +20,7 @@ message Rewards {
 
     string winners = 2 [(gogoproto.moretags) = "yaml:\"winners\""];
 
-    int64 amount = 3 [(gogoproto.moretags) = "yaml:\"amount\""];;
+    repeated cosmos.base.v1beta1.Coin amount = 3 [(gogoproto.nullable) = false , (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];
 }
 
 message TotalBettingInfo {
@@ -29,7 +29,7 @@ message TotalBettingInfo {
 
 message BettingInfo {
 
-    int64 amount = 1 [(gogoproto.moretags) = "yaml:\"amount\""];
+    repeated cosmos.base.v1beta1.Coin amount = 1 [(gogoproto.nullable) = false , (gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];
 
     string from_address =2 [(gogoproto.moretags) = "yaml:\"from_address\""];
 }
