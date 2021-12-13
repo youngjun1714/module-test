@@ -1,5 +1,5 @@
 {
-	"key": "stone-key"
+	"key": "stone-key",
     "chain-id" : "stone" ,
     "rpc-addr" : "http://localhost:26657",
     "account-prefix": "cosmos",

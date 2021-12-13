@@ -1,5 +1,5 @@
 {
-	"key" : "chae-key"
+	"key" : "chae-key",
     "chain-id" : "chae" ,
     "rpc-addr" : "http://localhost:26647",
     "account-prefix": "cosmos",
