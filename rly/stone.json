@@ -1,5 +1,5 @@
 {
-	"key": "stone-key",
+    "key": "stone-key",
     "chain-id" : "stone" ,
     "rpc-addr" : "http://localhost:26657",
     "account-prefix": "cosmos",
@@ -7,4 +7,3 @@
     "gas-prices": "0.0001stake",
     "trusting-period": "366h"
 }
-
