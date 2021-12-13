@@ -20,14 +20,14 @@ func (k Querier) TotalBetting(ctx context.Context, _ *types.QueryTotalBettingReq
 	oddinfo := k.GetOddsAmount(sdkCtx)
 	evensinfo := k.GetEvensAmount(sdkCtx)
 
-	var totalAmount sdk.Coin
+	totalAmount := sdk.NewCoin("stake", sdk.NewInt(0))
 
 	for _, oddbettinginfo := range oddinfo.Info {
-		totalAmount.Add(oddbettinginfo.Amount[0])
+		totalAmount = totalAmount.Add(oddbettinginfo.Amount[0])
 	}
 
 	for _, evensbettinginfo := range evensinfo.Info {
-		totalAmount.Add(evensbettinginfo.Amount[0])
+		totalAmount = totalAmount.Add(evensbettinginfo.Amount[0])
 	}
 
 	return &types.QueryTotalBettingResponse{ResInfo: types.NewResInfo(sdk.NewCoins(totalAmount))}, nil

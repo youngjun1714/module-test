@@ -1,0 +1,9 @@
+{
+	"key" : "chae-key"
+    "chain-id" : "chae" ,
+    "rpc-addr" : "http://localhost:26647",
+    "account-prefix": "cosmos",
+    "gas-adjustment": 1.5,
+    "gas-prices": "0.0001stake",
+    "trusting-period": "366h"
+}
